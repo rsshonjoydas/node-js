@@ -26,6 +26,6 @@ export const updateUser = async (user) => {
 
 export const deleteUser = async (id) => {
   const User = models.User;
-  let result = await User.deleteOne(id);
+  let result = await User.deleteOne({ _id: id });
   return result;
 }
