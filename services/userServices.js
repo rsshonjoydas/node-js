@@ -1,16 +1,16 @@
 import models from '../models';
 import { NotFound } from '../utils/error';
 
-export const saveUser = async (user) => {
-  const userModel = new models.User({ username: user.username, createdAt: new Date() })
-  const savedUser = await userModel.save();
-  return savedUser;
-}
-
 export const getAllUsers = async (user) => {
   const User = models.User;
   const users = await User.find()
   return users
+}
+
+export const saveUser = async (user) => {
+  const userModel = new models.User({ username: user.username, createdAt: new Date() })
+  const savedUser = await userModel.save();
+  return savedUser;
 }
 
 export const updateUser = async (user) => {
@@ -22,7 +22,7 @@ export const updateUser = async (user) => {
     model.save()
     return model;
   }
-  return null;
+  throw new NotFound('User not found')
 }
 
 export const deleteUser = async (id) => {
@@ -30,7 +30,7 @@ export const deleteUser = async (id) => {
   let model = await User.findById(id)
   if (model) {
     let result = await User.deleteOne({ _id: id });
-  return result;
+    return result;
   }
-  return new NotFound('User not found')
+  throw new NotFound('User not found')
 }
