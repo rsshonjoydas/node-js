@@ -22,11 +22,12 @@ const putHandler = async (req, res) => {
 
 const deleteHandler = async (req, res) => {
   const id = req.params.id;
-  if (!id) {
-    res.status(400).send("Id not found")
+  const result = await deleteUser(id)
+  if (result instanceof Error) {
+    res.status(404).send(result.message)
+  } else {
+    res.status(200).send("User Deleted Successfully")
   }
-  await deleteUser(id)
-  res.status(200).send("User Deleted Successfully")
 }
 
 // ! routes
