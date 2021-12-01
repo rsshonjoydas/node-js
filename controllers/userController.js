@@ -1,10 +1,11 @@
 import express from 'express'
-import { saveUser } from '../services/userServices'
+import { getAllUsers, saveUser } from '../services/userServices'
 
 const router = express.Router()
 
-const getHandler = (req, res) => {
-  res.send('Hello World ' + req.query.id)
+const getHandler = async (req, res) => {
+  const users = await getAllUsers()
+  res.send(users)
 }
 
 const postHandler = async (req, res) => {

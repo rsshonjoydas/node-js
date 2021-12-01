@@ -5,3 +5,9 @@ export const saveUser = async (user) => {
   const savedUser = await userModel.save();
   return savedUser;
 }
+
+export const getAllUsers = async (user) => {
+  const User = models.User;
+  const users = await User.find()
+  return users
+}
