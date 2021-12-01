@@ -1,6 +1,6 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import models from './models/index.js';
+import models from './models';
+import connectWithDB from './mongodb';
 
 const port = 5000
 const app = express()
@@ -8,26 +8,6 @@ const app = express()
 app.use(express.json())
 
 const log = (msg) => console.log(msg);
-
-const uri = 'mongodb://localhost:27017/nodejs';
-const options = {
-  useNewUrlParser: true,
-  // useCreateIndex: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-  autoIndex: false, // Don't build indexes
-  maxPoolSize: 10, // Maintain up to 10 socket connections
-  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-  family: 4 // Use IPv4, skip trying IPv6
-}
-
-const connectWithDB = () => {
-  mongoose.connect(uri, options, (err, db) => {
-    if (err) console.error(err);
-    else log("database connection")
-  })
-}
 
 connectWithDB()
 
@@ -48,7 +28,7 @@ app.post('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log("Listening on port" + port);
+  console.log("Listening on port " + port);
 })
 
 log(models);
