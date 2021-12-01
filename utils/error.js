@@ -6,10 +6,18 @@ export class GeneralError extends Error {
   getCode() { return 400 }
 }
 
-export class RedRequest extends GeneralError {
+export class BedRequest extends GeneralError {
+  constructor(message) {
+    super(message);
+    this.name = 'Bed Request';
+  }
   getCode() { return 400 }
 }
 
 export class NotFound extends GeneralError {
+  constructor(message) {
+    super(message);
+    this.name = 'Not Found';
+  }
   getCode() { return 404 }
 }

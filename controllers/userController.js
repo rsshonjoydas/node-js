@@ -20,14 +20,17 @@ const putHandler = async (req, res) => {
   res.status(200).send(user._id)
 }
 
-const deleteHandler = async (req, res) => {
-  const id = req.params.id;
-  const result = await deleteUser(id)
-  if (result instanceof Error) {
-    const code = result.getCode();
-    res.status(code).send(result.message)
-  } else {
-    res.status(200).send("User Deleted Successfully")
+const deleteHandler = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const result = await deleteUser(id)
+    if (result instanceof Error) {
+      return next(result, req, res);
+    } else {
+      res.status(200).send("User Deleted Successfully")
+    }
+  } catch (error) {
+    return next(error, req, res);
   }
 }
 
