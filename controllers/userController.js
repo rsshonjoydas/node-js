@@ -1,4 +1,6 @@
 import express from 'express'
+import { handleValidation } from '../middlewares/handleValidation'
+import validators from '../models/view-model'
 import { deleteUser, getAllUsers, saveUser, updateUser } from '../services/userServices'
 
 const router = express.Router()
@@ -44,7 +46,7 @@ const deleteHandler = async (req, res, next) => {
 
 // ! routes
 router.get('/', getHandler)
-router.post('/', postHandler)
+router.post('/', handleValidation(validators.userSchemaValidator), postHandler)
 router.put('/', putHandler)
 router.delete('/:id', deleteHandler)
 
