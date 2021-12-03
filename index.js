@@ -1,9 +1,9 @@
-// import {ElasticsearchTransport} from 'winston-elasticsearch'
 import dotenv from 'dotenv';
 import express from 'express';
 import expressWinston from 'express-winston';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
+import { ElasticsearchTransport } from 'winston-elasticsearch';
 import 'winston-mongodb';
 import configure from './controllers';
 import { handleError } from './middlewares/handleError';
@@ -51,10 +51,19 @@ const mongoErrorTransport = new (winston.transports.MongoDB)({
   options,
 })
 
+const elasticsearchOptions = {
+  level: 'info',
+  clientOpts: { node: 'http://localhost:9200' },
+  indexPrefix: 'log-elasticsearch'
+}
+
+const esTransport = new (ElasticsearchTransport)(elasticsearchOptions)
+
 const infoLogger = expressWinston.logger({
   transports: [
     new winston.transports.Console(),
-    fileInfoTransport
+    fileInfoTransport,
+    esTransport
   ],
   format: winston.format.combine(
     winston.format.colorize(),
@@ -69,7 +78,8 @@ const errorLogger = expressWinston.errorLogger({
   transports: [
     new winston.transports.Console(),
     fileErrorTransport,
-    mongoErrorTransport
+    mongoErrorTransport,
+    esTransport
   ],
   format: winston.format.combine(
     winston.format.colorize(),
