@@ -8,10 +8,10 @@ import connectWithDB from './mongodb';
 // import winstonFile from 'winston-daily-rotate-file'
 // import winstonMongo from 'winston-mongodb'
 // import {ElasticsearchTransport} from 'winston-elasticsearch'
+require('dotenv').config()
 
-const port = 5000
+// TODO: Express JS Configuration
 const app = express()
-
 app.use(express.json())
 
 const getMessage = (req, res) => {
@@ -50,6 +50,9 @@ configure(app)
 // TODO: Error Handler
 app.use(handleError);
 
-app.listen(port, () => {
-  console.log("Listening on port " + port);
+// TODO: App Configuration
+const APP_PORT = process.env.APP_PORT || 5000
+
+app.listen(APP_PORT, () => {
+  console.log(`Listening on port ${APP_PORT}`);
 })
