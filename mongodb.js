@@ -1,5 +1,7 @@
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-require('dotenv').config()
+
+dotenv.config()
 
 const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 

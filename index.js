@@ -1,3 +1,6 @@
+// import winstonMongo from 'winston-mongodb'
+// import {ElasticsearchTransport} from 'winston-elasticsearch'
+import dotenv from 'dotenv';
 import express from 'express';
 import expressWinston from 'express-winston';
 import winston from 'winston';
@@ -6,14 +9,13 @@ import configure from './controllers';
 import { handleError } from './middlewares/handleError';
 import { processRequest } from './middlewares/processRequest';
 import connectWithDB from './mongodb';
-// import winstonMongo from 'winston-mongodb'
-// import {ElasticsearchTransport} from 'winston-elasticsearch'
-
-require('dotenv').config()
 
 // TODO: Express JS Configuration
 const app = express()
 app.use(express.json())
+
+// TODO: dotenv Configuration
+dotenv.config()
 
 const getMessage = (req, res) => {
   let obj = {
