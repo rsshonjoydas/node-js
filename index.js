@@ -35,6 +35,16 @@ const fileInfoTransport = new (winston.transports.DailyRotateFile)(
   }
 );
 
+const fileErrorTransport = new (winston.transports.DailyRotateFile)(
+  {
+    filename: 'log-error-%DATE%.log',
+    datePattern: 'yyyy-MM-DD-HH',
+    zippedArchive: true,
+    maxSize: '20m',
+    maxFiles: '14d'
+  }
+);
+
 const infoLogger = expressWinston.logger({
   transports: [
     new winston.transports.Console(),
@@ -47,7 +57,20 @@ const infoLogger = expressWinston.logger({
   meta: true,
   // msg: 'This is a {{req.method}} request from {{req.url}}'
   msg: getMessage
-})
+});
+
+const errorLogger = expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console(),
+    fileErrorTransport
+  ],
+  format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.json()
+  ),
+  meta: true,
+  msg: '{ "correlationId": "{{req.headers["x-correlation-id"]}}", "error": "{{err.message}}" }'
+});
 
 // TODO: Logger Configuration
 app.use(infoLogger)
@@ -62,6 +85,7 @@ app.use(processRequest)
 configure(app)
 
 // TODO: Error Handler
+app.use(errorLogger)
 app.use(handleError);
 
 // TODO: App Configuration
