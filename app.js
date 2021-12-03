@@ -105,9 +105,4 @@ configure(app)
 app.use(errorLogger)
 app.use(handleError);
 
-// TODO: App Configuration
-const APP_PORT = process.env.APP_PORT || 5000
-
-app.listen(APP_PORT, () => {
-  console.log(`Listening on port ${APP_PORT}`);
-})
+export default app;
