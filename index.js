@@ -1,13 +1,14 @@
 import express from 'express';
 import expressWinston from 'express-winston';
 import winston from 'winston';
+import 'winston-daily-rotate-file';
 import configure from './controllers';
 import { handleError } from './middlewares/handleError';
 import { processRequest } from './middlewares/processRequest';
 import connectWithDB from './mongodb';
-// import winstonFile from 'winston-daily-rotate-file'
 // import winstonMongo from 'winston-mongodb'
 // import {ElasticsearchTransport} from 'winston-elasticsearch'
+
 require('dotenv').config()
 
 // TODO: Express JS Configuration
@@ -22,9 +23,20 @@ const getMessage = (req, res) => {
   return JSON.stringify(obj)
 }
 
+const fileInfoTransport = new (winston.transports.DailyRotateFile)(
+  {
+    filename: 'log-info-%DATE%.log',
+    datePattern: 'YYYY-MM-DD-HH',
+    zippedArchive: true,
+    maxSize: '20m',
+    maxFiles: '14d'
+  }
+);
+
 const infoLogger = expressWinston.logger({
   transports: [
-    new winston.transports.Console()
+    new winston.transports.Console(),
+    fileInfoTransport
   ],
   format: winston.format.combine(
     winston.format.colorize(),
