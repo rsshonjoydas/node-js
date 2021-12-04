@@ -12,12 +12,16 @@ describe('userController test suite', () => {
     expect(users[0]._id).toBe('1');
   })
 
-  test.only('post should return saved id', async () => {
+  test('post should return saved id', async () => {
     let user = { username: 'test37' };
     let response = await request(app).post('/users').send(user);
     expect(response.statusCode).toBe(201);
     let body = response.body;
     expect(body.length).toBe(24);
+    let savedUserResponse =await request(app).get('/users/' + body)
+    let savedUser = savedUserResponse.body;
+    expect(savedUser.createdAt).not.toBeNull();
+    expect(savedUser.username).toBe(user.username);
   })
 })
 
