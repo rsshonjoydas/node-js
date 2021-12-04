@@ -4,7 +4,7 @@ import configure from './controllers';
 import { errorLogger, infoLogger } from './logger';
 import { handleError } from './middlewares/handleError';
 import { processRequest } from './middlewares/processRequest';
-import { connectWithDB } from './mongodb';
+import { connectWithDB, options, uri } from './mongodb';
 
 // TODO: Express JS Configuration
 const app = express()
@@ -27,7 +27,7 @@ app.use(processRequest)
 configure(app)
 
 // TODO: Error Handler
-app.use(errorLogger)
+app.use(errorLogger(uri, options))
 app.use(handleError);
 
 export default app;
