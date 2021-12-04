@@ -12,8 +12,11 @@ app.use(express.json())
 // TODO: dotenv Configuration
 dotenv.config()
 
+console.log(process.env.ENVIRONMENT);
+
 // TODO: Logger Configuration
-app.use(infoLogger)
+if (process.env.ENVIRONMENT !== 'development')
+  app.use(infoLogger)
 
 // TODO: Database Connection
 connectWithDB()
@@ -25,7 +28,9 @@ app.use(processRequest)
 configure(app)
 
 // TODO: Error Handler
-app.use(errorLogger(uri, options))
+if (process.env.ENVIRONMENT !== 'development')
+  app.use(errorLogger(uri, options))
+
 app.use(handleError);
 
 export default app;
