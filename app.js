@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import configure from './controllers';
 import { errorLogger, infoLogger } from './logger';
-import { handleError } from './middlewares/handleError';
-import { processRequest } from './middlewares/processRequest';
+import { handleError, processRequest } from './middlewares';
 import { connectWithDB, options, uri } from './mongodb';
 
 // TODO: Express JS Configuration
@@ -12,7 +11,6 @@ app.use(express.json())
 
 // TODO: dotenv Configuration
 dotenv.config()
-
 
 // TODO: Logger Configuration
 app.use(infoLogger)
