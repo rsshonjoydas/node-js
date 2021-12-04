@@ -1,7 +1,7 @@
 import models from "../../models";
 
 let users = [{
-  '_id': '1', 'username': 'Shonjoy'
+  'id': '1', 'username': 'Shonjoy'
 }]
 
 export const getAllUsers = async (user) => {

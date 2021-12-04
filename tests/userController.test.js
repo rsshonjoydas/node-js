@@ -23,5 +23,11 @@ describe('userController test suite', () => {
     expect(savedUser.createdAt).not.toBeNull();
     expect(savedUser.username).toBe(user.username);
   })
+
+  test.only("get by id should return an user", async () => {
+    let response = await request(app).get('/users/1')
+    let user = response.body;
+    expect(user.id).toBe('1');
+  })
 })
 
