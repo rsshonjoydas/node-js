@@ -1,3 +1,5 @@
+import request from 'supertest';
+import app from './app';
 
 beforeAll(async () => {
   console.log('beforeAll');
@@ -19,4 +21,10 @@ describe('user controller test suites', () => {
   test('should work my fist test', async () => {
     console.log('hello world');
   })
+
+  test('get users test', async () => {
+    let response = await request(app).get('/users');
+    expect(response).not.toBeNull();
+    console.log('get users test', response.body);
+  });
 })
