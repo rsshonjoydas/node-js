@@ -12,26 +12,6 @@ const getMessage = (req, res) => {
   return JSON.stringify(obj)
 }
 
-const fileInfoTransport = new (winston.transports.DailyRotateFile)(
-  {
-    filename: 'log-info-%DATE%.log',
-    datePattern: 'YYYY-MM-DD-HH',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d'
-  }
-);
-
-const fileErrorTransport = new (winston.transports.DailyRotateFile)(
-  {
-    filename: 'log-error-%DATE%.log',
-    datePattern: 'yyyy-MM-DD-HH',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d'
-  }
-);
-
 const mongoErrorTransport = (uri, options) => new (winston.transports.MongoDB)({
   db: uri,
   metaKey: 'meta',
@@ -49,7 +29,15 @@ const esTransport = new (ElasticsearchTransport)(elasticsearchOptions)
 export const infoLogger = () => expressWinston.logger({
   transports: [
     new winston.transports.Console(),
-    fileInfoTransport,
+    new winston.transports.DailyRotateFile(
+      {
+        filename: 'log-info-%DATE%.log',
+        datePattern: 'YYYY-MM-DD-HH',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d'
+      }
+    ),
     esTransport
   ],
   format: winston.format.combine(
@@ -64,7 +52,15 @@ export const infoLogger = () => expressWinston.logger({
 export const errorLogger = (uri, options) => expressWinston.errorLogger({
   transports: [
     new winston.transports.Console(),
-    fileErrorTransport,
+    new winston.transports.DailyRotateFile(
+      {
+        filename: 'log-error-%DATE%.log',
+        datePattern: 'yyyy-MM-DD-HH',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d'
+      }
+    ),
     mongoErrorTransport(uri, options),
     esTransport
   ],

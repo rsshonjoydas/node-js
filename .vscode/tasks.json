@@ -14,7 +14,7 @@
       "group": "test",
       "problemMatcher": [],
       "label": "npm: test",
-      "detail": "jest --watch"
+      "detail": "jest --runInBand --watch --force-exit"
     }
   ]
 }

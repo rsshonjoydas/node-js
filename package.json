@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon -r esm ./src/server.js",
-    "test": "jest --watch"
+    "test": "jest --runInBand --watch --force-exit"
   },
   "repository": {
     "type": "git",
