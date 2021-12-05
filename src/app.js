@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { errorLogger, infoLogger } from './logger';
 import { handleError, processRequest } from './middlewares';
 import { options, uri } from './mongodb';
@@ -28,5 +29,9 @@ if (process.env.ENVIRONMENT !== 'development')
 
 // TODO: Error Handler
 app.use(handleError);
+
+// TODO: Swagger Configuration
+const swaggerDocument = require('./swagger.json')
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 export default app;
