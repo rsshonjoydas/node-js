@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import configureRoutes from './controllers';
 import { errorLogger, infoLogger } from './logger';
 import { handleError, processRequest } from './middlewares';
 import { options, uri } from './mongodb';
+import routes from './routes';
 
 // TODO: Express JS Configuration
 const app = express()
@@ -20,7 +20,7 @@ if (process.env.ENVIRONMENT !== 'development')
 app.use(processRequest)
 
 // TODO: Routes Configuration
-configureRoutes(app)
+routes(app)
 
 // TODO: Error Logger Configuration
 if (process.env.ENVIRONMENT !== 'development')

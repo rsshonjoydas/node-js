@@ -1,12 +1,7 @@
-import express from 'express'
-import { handleValidation } from '../middlewares'
-import validators from '../models/request-models'
 import { deleteUser, getAllUsers, getUserById, saveUser, updateUser } from '../services/userServices'
 import { NotFound } from '../utils/error'
 
-const router = express.Router()
-
-const getHandler = async (req, res, next) => {
+export const getHandler = async (req, res, next) => {
   try {
     const users = await getAllUsers()
     res.status(200).send(users)
@@ -15,7 +10,7 @@ const getHandler = async (req, res, next) => {
   }
 }
 
-const getByIdHandler = async (req, res, next) => {
+export const getByIdHandler = async (req, res, next) => {
   try {
     const id = req.params.id;
     const user = await getUserById(id)
@@ -29,7 +24,7 @@ const getByIdHandler = async (req, res, next) => {
   }
 }
 
-const postHandler = async (req, res, next) => {
+export const postHandler = async (req, res, next) => {
   try {
     const body = req.body;
     const id = await saveUser(body);
@@ -39,7 +34,7 @@ const postHandler = async (req, res, next) => {
   }
 }
 
-const putHandler = async (req, res, next) => {
+export const putHandler = async (req, res, next) => {
   try {
     const body = req.body;
     const id = await updateUser(body)
@@ -49,7 +44,7 @@ const putHandler = async (req, res, next) => {
   }
 }
 
-const deleteHandler = async (req, res, next) => {
+export const deleteHandler = async (req, res, next) => {
   try {
     const id = req.params.id;
     await deleteUser(id)
@@ -58,12 +53,3 @@ const deleteHandler = async (req, res, next) => {
     return next(error, req, res);
   }
 }
-
-// ! routes
-router.get('/', getHandler)
-router.get('/:id', getByIdHandler)
-router.post('/', handleValidation(validators.userSchemaValidator), postHandler)
-router.put('/', putHandler)
-router.delete('/:id', deleteHandler)
-
-export default router;
