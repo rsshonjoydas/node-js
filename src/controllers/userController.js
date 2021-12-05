@@ -66,8 +66,4 @@ router.post('/', handleValidation(validators.userSchemaValidator), postHandler)
 router.put('/', putHandler)
 router.delete('/:id', deleteHandler)
 
-const configure = (app) => {
-  app.use('/users', router)
-}
-
-export default configure
+export default router;

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import configure from './controllers';
+import configureRoutes from './controllers';
 import { handleError, processRequest } from './middlewares';
 
 // TODO: Express JS Configuration
@@ -14,7 +14,7 @@ dotenv.config()
 app.use(processRequest)
 
 // TODO: Routes Configuration
-configure(app)
+configureRoutes(app)
 
 // TODO: Error Handler
 app.use(handleError);

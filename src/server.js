@@ -8,7 +8,7 @@ const APP_PORT = process.env.APP_PORT || 5000
 app.listen(APP_PORT, () => {
   // TODO: Info Logger Configuration
   if (process.env.ENVIRONMENT !== 'development')
-    app.use(infoLogger)
+    app.use(infoLogger())
 
   // TODO: Database Connection
   connectWithDB()
