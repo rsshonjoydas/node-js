@@ -23,3 +23,7 @@ export const updateUser = async (user) => {
   users[0].username = user.username
   return users[0]
 }
+
+export const deleteUser = async (id) => {
+  users = []
+}

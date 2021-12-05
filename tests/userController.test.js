@@ -18,7 +18,7 @@ describe('userController test suite', () => {
     expect(response.statusCode).toBe(201);
     let body = response.body;
     expect(body.length).toBe(24);
-    let savedUserResponse =await request(app).get('/users/' + body)
+    let savedUserResponse = await request(app).get('/users/' + body)
     let savedUser = savedUserResponse.body;
     expect(savedUser.createdAt).not.toBeNull();
     expect(savedUser.username).toBe(user.username);
@@ -31,12 +31,21 @@ describe('userController test suite', () => {
   })
 
   test('put should update exiting user', async () => {
-    let user = {id: '1', name: 'test37'};
+    let user = { id: '1', name: 'test37' };
     let response = await request(app).put('/users').send(user)
     expect(response.statusCode).toBe(200)
     let updatedUserResponse = await request(app).get('/users/1')
     let updatedUser = updatedUserResponse.body
     expect(updatedUser.username).toBe(user.username)
+  })
+
+  test("delete by id should return success message", async () => {
+    let response = await request(app).delete('/users/1')
+    expect(response.statusCode).toBe(200);
+    let deletedUserResponse = await request(app).get('/users/1')
+    expect(deletedUserResponse.statusCode).toBe(404)
+    let deletedUser = deletedUserResponse.body
+    expect(deletedUser.message).toBe('user not found')
   })
 })
 
