@@ -18,3 +18,8 @@ export const getUserById = async (id) => {
   let model = users.find(user => user.id === id)
   return model;
 }
+
+export const updateUser = async (user) => {
+  users[0].username = user.username
+  return users[0]
+}

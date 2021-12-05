@@ -29,5 +29,14 @@ describe('userController test suite', () => {
     let user = response.body;
     expect(user.id).toBe('1');
   })
+
+  test('put should update exiting user', async () => {
+    let user = {id: '1', name: 'test37'};
+    let response = await request(app).put('/users').send(user)
+    expect(response.statusCode).toBe(200)
+    let updatedUserResponse = await request(app).get('/users/1')
+    let updatedUser = updatedUserResponse.body
+    expect(updatedUser.username).toBe(user.username)
+  })
 })
 
