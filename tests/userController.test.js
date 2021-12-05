@@ -9,7 +9,7 @@ describe('userController test suite', () => {
     expect(response.statusCode).toBe(200);
     let users = response.body;
     expect(users.length).toBeGreaterThan(0);
-    expect(users[0]._id).toBe('1');
+    expect(users[0].id).toBe('1');
   })
 
   test('post should return saved id', async () => {
@@ -24,7 +24,7 @@ describe('userController test suite', () => {
     expect(savedUser.username).toBe(user.username);
   })
 
-  test.only("get by id should return an user", async () => {
+  test("get by id should return an user", async () => {
     let response = await request(app).get('/users/1')
     let user = response.body;
     expect(user.id).toBe('1');
