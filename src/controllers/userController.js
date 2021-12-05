@@ -1,6 +1,6 @@
 import express from 'express'
 import { handleValidation } from '../middlewares'
-import validators from '../models/view-model'
+import validators from '../models/request-models'
 import { deleteUser, getAllUsers, getUserById, saveUser, updateUser } from '../services/userServices'
 import { NotFound } from '../utils/error'
 
@@ -32,8 +32,8 @@ const getByIdHandler = async (req, res, next) => {
 const postHandler = async (req, res, next) => {
   try {
     const body = req.body;
-    const user = await saveUser(body);
-    res.status(201).send(user._id)
+    const id = await saveUser(body);
+    res.status(201).send(id)
   } catch (error) {
     return next(error, req, res);
   }
@@ -42,8 +42,8 @@ const postHandler = async (req, res, next) => {
 const putHandler = async (req, res, next) => {
   try {
     const body = req.body;
-    const user = await updateUser(body)
-    res.status(200).send(user._id)
+    const id = await updateUser(body)
+    res.status(200).send(id)
   } catch (error) {
     return next(error, req, res);
   }

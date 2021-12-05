@@ -1,38 +1,41 @@
-import models from '../models';
+import UserDataModel from '../models/data-models';
+import UserViewModel from '../models/view-models';
 import { NotFound } from '../utils/error';
 
-export const getAllUsers = async (user) => {
-  const User = models.User;
+export const getAllUsers = async () => {
+  const User = UserDataModel.User;
   const users = await User.find()
-  return users
+  let allUsers = users.map(user => new UserViewModel(user))
+  return allUsers
 }
 
 export const getUserById = async (id) => {
-  const User = models.User;
+  const User = UserDataModel.User;
   let model = await User.findById(id);
-  return model;
+  let viewModel = new UserViewModel(model)
+  return viewModel;
 }
 
 export const saveUser = async (user) => {
-  const userModel = new models.User(user);
+  const userModel = new UserDataModel.User(user);
   const savedUser = await userModel.save();
-  return savedUser;
+  return savedUser._id;
 }
 
 export const updateUser = async (user) => {
-  const id = user._id;
-  const User = models.User;
+  const id = user.id;
+  const User = UserDataModel.User;
   let model = await User.findById(id)
   if (model) {
     model.username = user.username;
     model.save()
-    return model;
+    return model._id;
   }
   throw new NotFound('User not found')
 }
 
 export const deleteUser = async (id) => {
-  const User = models.User;
+  const User = UserDataModel.User;
   let model = await User.findById(id)
   if (model) {
     let result = await User.deleteOne({ _id: id });
