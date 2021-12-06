@@ -15,9 +15,12 @@ export const options = {
   family: 4 // Use IPv4, skip trying IPv6
 }
 
-export const connectWithDB = () => {
-  mongoose.connect(uri, options, (err) => {
-    if (err) console.error(err);
-    else console.log("database connection")
-  })
+export const connectDBWithRetry = () => {
+  mongoose
+    .connect(uri, options)
+    .then(() => console.log('Successfully connected to Database'))
+    .catch((e) => {
+      console.log(e)
+      setTimeout(connectDBWithRetry, 5000);
+    })
 }
