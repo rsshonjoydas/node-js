@@ -5,6 +5,7 @@ import { errorLogger, infoLogger } from './logger';
 import { handleError, processRequest } from './middlewares';
 import { options, uri } from './mongodb';
 import routes from './routes';
+import swaggerDocument from './swagger.json';
 
 // TODO: Express JS Configuration
 const app = express()
@@ -20,15 +21,14 @@ app.use(processRequest)
 // TODO: Routes Configuration
 routes(app)
 
+// TODO: Swagger Configuration
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
 // TODO: Error Logger Configuration
 if (config.APP_ENVIRONMENT !== 'development')
   app.use(errorLogger(uri, options))
 
 // TODO: Error Handler
 app.use(handleError);
-
-// TODO: Swagger Configuration
-const swaggerDocument = require('./swagger.json')
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 export default app;
