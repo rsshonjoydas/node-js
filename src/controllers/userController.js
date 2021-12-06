@@ -1,7 +1,7 @@
 import { deleteUser, getAllUsers, getUserById, saveUser, updateUser } from '../services/userServices'
 import { NotFound } from '../utils/error'
 
-export const getHandler = async (req, res, next) => {
+const getHandler = async (req, res, next) => {
   try {
     const users = await getAllUsers()
     res.status(200).send(users)
@@ -10,7 +10,7 @@ export const getHandler = async (req, res, next) => {
   }
 }
 
-export const getByIdHandler = async (req, res, next) => {
+const getByIdHandler = async (req, res, next) => {
   try {
     const id = req.params.id;
     const user = await getUserById(id)
@@ -24,7 +24,7 @@ export const getByIdHandler = async (req, res, next) => {
   }
 }
 
-export const postHandler = async (req, res, next) => {
+const postHandler = async (req, res, next) => {
   try {
     const body = req.body;
     const id = await saveUser(body);
@@ -34,7 +34,7 @@ export const postHandler = async (req, res, next) => {
   }
 }
 
-export const putHandler = async (req, res, next) => {
+const putHandler = async (req, res, next) => {
   try {
     const body = req.body;
     const id = await updateUser(body)
@@ -44,7 +44,7 @@ export const putHandler = async (req, res, next) => {
   }
 }
 
-export const deleteHandler = async (req, res, next) => {
+const deleteHandler = async (req, res, next) => {
   try {
     const id = req.params.id;
     await deleteUser(id)
@@ -52,4 +52,12 @@ export const deleteHandler = async (req, res, next) => {
   } catch (error) {
     return next(error, req, res);
   }
+}
+
+export default {
+  getHandler,
+  getByIdHandler,
+  postHandler,
+  putHandler,
+  deleteHandler
 }
