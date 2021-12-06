@@ -1,8 +1,9 @@
 import app from './app';
+import config from './config';
 import { connectDBWithRetry } from './mongodb';
 
 // TODO: App Configuration
-const APP_PORT = process.env.APP_PORT || 5000
+const APP_PORT = config.APP_PORT;
 
 app.listen(APP_PORT, () => {
   // TODO: Database Connection

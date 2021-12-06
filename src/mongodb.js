@@ -1,9 +1,8 @@
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import config from './config';
 
-dotenv.config()
-
-export const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+export const uri = `mongodb://${config.MONGODB_HOST}:${config.MONGODB_PORT}/${config.MONGODB_NAME}`;
+// export const uri = `mongodb://${config.MONGODB_USER}:${config.MONGODB_PASSWORD}@${config.MONGODB_IP}:${config.MONGODB_PORT}/?authSource=admin`
 
 export const options = {
   useNewUrlParser: true,
