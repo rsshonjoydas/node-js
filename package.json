@@ -5,6 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon -r esm ./src/server.js",
+    "start:pm2": "pm2 start ./src/server.js --watch",
+    "restart:pm2": "pm2 restart ./src/server.js",
+    "stop:pm2": "pm2 stop ./src/server.js",
     "test": "jest --runInBand --watch --force-exit"
   },
   "repository": {
@@ -19,12 +22,18 @@
   },
   "homepage": "https://github.com/rsshonjoydas/node-js#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.5.1",
     "express-winston": "^4.2.0",
+    "helmet": "^4.6.0",
     "joi": "^17.4.3",
     "mongoose": "^6.0.14",
+    "pm2": "^5.1.2",
     "swagger-ui-express": "^4.2.0",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5",

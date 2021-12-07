@@ -15,6 +15,27 @@
       "problemMatcher": [],
       "label": "npm: test",
       "detail": "jest --runInBand --watch --force-exit"
+    },
+    {
+      "type": "npm",
+      "script": "start:pm2",
+      "problemMatcher": [],
+      "label": "npm: start:pm2",
+      "detail": "pm2 start ./src/server.js --watch"
+    },
+    {
+      "type": "npm",
+      "script": "restart:pm2",
+      "problemMatcher": [],
+      "label": "npm: restart:pm2",
+      "detail": "pm2 restart ./src/server.js"
+    },
+    {
+      "type": "npm",
+      "script": "stop:pm2",
+      "problemMatcher": [],
+      "label": "npm: stop:pm2",
+      "detail": "pm2 stop ./src/server.js"
     }
   ]
 }
