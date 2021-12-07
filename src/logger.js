@@ -2,6 +2,7 @@ import expressWinston from 'express-winston';
 import winston from 'winston';
 import { ElasticsearchTransport } from 'winston-elasticsearch';
 import 'winston-mongodb';
+import config from './config';
 
 const getMessage = (req, res) => {
   let obj = {
@@ -19,7 +20,7 @@ const mongoErrorTransport = (uri, options) => new (winston.transports.MongoDB)({
 
 const elasticsearchOptions = {
   level: 'info',
-  clientOpts: { node: 'http://localhost:9200' },
+  clientOpts: { node: `http://${config.ELASTICSEARCH_HOST}:${config.ELASTICSEARCH_PORT}` },
   indexPrefix: 'log-elasticsearch'
 }
 

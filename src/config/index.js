@@ -14,5 +14,9 @@ export default {
   // ? MongoDB live server connection configuration
   MONGODB_IP: process.env.MONGODB_IP || 'mongo',
   MONGODB_USER: process.env.MONGODB_USER,
-  MONGODB_PASSWORD: process.env.MONGODB_PASSWORD
+  MONGODB_PASSWORD: process.env.MONGODB_PASSWORD,
+
+  // ? Elasticsearch connection configuration
+  ELASTICSEARCH_HOST: process.env.ELASTICSEARCH_HOST || 'localhost',
+  ELASTICSEARCH_PORT: process.env.ELASTICSEARCH_PORT || 9200,
 }
