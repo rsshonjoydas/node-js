@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon -r esm ./src/server.js",
+    "start": "nodemon --inspect=0.0.0.0 -r esm ./src/server.js",
     "start:pm2": "pm2 start ./src/server.js --watch",
     "restart:pm2": "pm2 restart ./src/server.js",
     "stop:pm2": "pm2 stop ./src/server.js",
