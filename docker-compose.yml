@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  node:
+    image: node
+    environment:
+      - PORT=5000
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - mynet
+    volumes:
+      - mongo:/data/db
+    environment:
+      - MONGODB_HOST=mongo
+  elasticsearch:
+    image: elasticsearch:7.14.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ELASTICSEARCH_HOST=elasticsearch
+    ports:
+      - '9200:9200'
+    networks:
+      - mynet
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+  kibana:
+    image: kibana:7.14.0
+    container_name: kibana
+    ports:
+      - '5601:5601'
+    networks:
+      - mynet
+    volumes:
+      - kibana:/usr/share/kibana/data
+networks:
+  mynet:
+    driver: bridge
+volumes:
+  mongo:
+  elasticsearch:
+  kibana:
