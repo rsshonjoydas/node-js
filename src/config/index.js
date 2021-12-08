@@ -14,5 +14,11 @@ export default {
   // ? MongoDB live server connection configuration
   MONGODB_IP: process.env.MONGODB_IP || 'mongo',
   MONGODB_USER: process.env.MONGODB_USER,
-  MONGODB_PASSWORD: process.env.MONGODB_PASSWORD
+  MONGODB_PASSWORD: process.env.MONGODB_PASSWORD,
+
+  // ? Redis connection configuration
+  REDIS_HOST: process.env.REDIS_HOST || 'redis',
+  REDIS_PORT: process.env.REDIS_PORT || 6379,
+
+  SESSION_SECRET: process.env.SESSION_SECRET,
 }
